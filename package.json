@@ -1,0 +1,28 @@
+{
+  "name": "scraping",
+  "version": "1.0.0",
+  "description": "",
+  "engines": {
+    "node": ">= 12.16.3",
+    "npm": ">= 6.14.8"
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cheerio": "^1.0.0-rc.3",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-load": "^1.1.16",
+    "is-online": "^9.0.0",
+    "method-override": "^2.3.10",
+    "puppeteer": "^5.4.0",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6"
+  }
+}

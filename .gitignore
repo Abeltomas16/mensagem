@@ -1,0 +1,16 @@
+#pasta do node_modules
+/node_modules
+
+#todos os logs
+logs
+*.log
+npm-debug.log*
+
+#.env
+.env
+
+# Bower dependency directory (https://bower.io/)
+bower_components
+
+# Optional npm cache directory
+.npm

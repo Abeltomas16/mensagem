@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/materialize.css">
+    <style>
+        div.img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            visibility: hidden;
+        }
+
+        div.img.activo {
+            visibility: visible;
+        }
+
+        div.img p {
+            position: absolute;
+            top: 0;
+            text-align: center;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        footer {
+            margin-top: 40px;
+        }
+    </style>
+    <title>Envio de sms</title>
+</head>
+
+<body>
+    <div>
+        <h1 style="text-align: center; font-size: 2em;">API DE ENVIO DE MENSAGEM</h1>
+        <hr>
+    </div>
+    <div class="container z-depth-0 grey lighten-3" style="margin-top: 40px;">
+        <div class="row">
+            <form class="col s12 frm">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="numero" type="tel" class="validate">
+                        <label for="numero">Telefone</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <textarea id="corpo" class="materialize-textarea"></textarea>
+                        <label for="corpo">Corpo da mensagem</label>
+                    </div>
+                </div>
+                <button class="btn waves-effect waves-light red disable" type="submit" name="action"
+                    class="action">Enviar
+                </button>
+            </form>
+        </div>
+        <div>
+
+        </div>
+    </div>
+
+    <div class="img">
+        <img src="img/loading.gif" alt="send">
+        <p style="text-align: center; color: black;">Enviando...</p>
+    </div>
+
+    <footer class="page-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col s12">
+                    <h5 class="white-text">Envio de mensagens</h5>
+                    <p class="grey-text text-lighten-4">Com esta API podes mandar mensagem grátis ilimitadas para
+                        qualquer número da rede unitel, sem gastares nenhum KZ, experimente usar a API, disponivel até
+                        10
+                        de jANEIRO
+                        de 2020.</p>
+                </div>
+
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                © 2020 Abel Tomás
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/materialize.js"></script>
+    <script>
+        const fr = document.querySelector('.frm');
+        const processo = document.querySelector('div.img');
+
+        fr.addEventListener('submit', e => {
+            e.preventDefault();
+
+            fr['action'].classList.add('disabled');
+            processo.classList.toggle('activo')
+
+            dar(fr['numero'].value, fr['corpo'].value).then(data => {
+                processo.classList.toggle('activo')
+                fr['action'].classList.remove('disabled');
+                alert(data.Status + " " + data.Mensagem)
+            }).catch(erro => {
+                processo.classList.toggle('activo')
+                fr['action'].classList.remove('disabled');
+                alert(erro)
+            })
+
+        })
+
+
+        const dar = async (num, corpo) => {
+            const response = await fetch('http://localhost:3000/sms', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `destino=${num}&corpo=${corpo}`
+            })
+            const dados = await response.json();
+            return dados;
+        }
+    </script>
+</body>
+
+</html>
